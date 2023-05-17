@@ -8,7 +8,6 @@ function showHello(divName: string, name: string) {
 
 // ===========================Task 02.01. Basic Types========================
 
-// 01
 type Book = {
     id: number;
     title: string;
@@ -17,6 +16,15 @@ type Book = {
     category: Category;
 };
 
+enum Category {
+    JavaScript,
+    CSS,
+    HTML,
+    TypeScript,
+    Angular
+}
+
+// 01
 function getAllBooks(): Book[] {
     const books: Book[] = [
         {
@@ -41,18 +49,23 @@ function getAllBooks(): Book[] {
 function logFirstAvailable(booksArray: Book[]): void {
     const booksCount: number = booksArray.length;
     const firstAvailableBook: Book = booksArray.find(book => book.available);
-    console.log(booksCount, firstAvailableBook);
+
+    const nameFirstAvailableBook = firstAvailableBook?.title;
+
+    console.log(booksCount, nameFirstAvailableBook);
 }
 
-logFirstAvailable(getAllBooks());
+// 03
 
-enum Category {
-    JavaScript,
-    CSS,
-    HTML,
-    TypeScript,
-    Angular
+
+// 04
+function getBookTitlesByCategory(category: Category): string[] {
+    const books = getAllBooks();
+    const filteredBooks = books.filter(book => book.category === category);
+    return filteredBooks.map(book => book.title);
 }
+
+console.log(getBookTitlesByCategory(Category.CSS));
 // ===========================Task 02.02. Const Assertions===================
 
 // 01
