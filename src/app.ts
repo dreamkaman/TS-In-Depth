@@ -24,6 +24,8 @@ enum Category {
     Angular
 }
 
+type titleAuthor = [title: string, author: string];
+
 // 01
 function getAllBooks(): Book[] {
     const books: Book[] = [
@@ -62,10 +64,26 @@ function logFirstAvailable(booksArray: Book[]): void {
 function getBookTitlesByCategory(category: Category): string[] {
     const books = getAllBooks();
     const filteredBooks = books.filter(book => book.category === category);
-    return filteredBooks.map(book => book.title);
+    const namesFilteredBooks = filteredBooks?.map(book => book.title);
+
+    return namesFilteredBooks;
 }
 
-console.log(getBookTitlesByCategory(Category.CSS));
+// 05
+function logBookTitles(booksTitles: string[]): void {
+    console.log(booksTitles);
+}
+
+logBookTitles(getBookTitlesByCategory(Category.JavaScript));
+
+// 06
+function getBookAuthorByIndex(index: number): titleAuthor {
+    const allBooks = getAllBooks();
+    const bookByIndex = allBooks[index];
+    const { title, author } = bookByIndex;
+    return [title, author];
+};
+getBookAuthorByIndex(10);
 // ===========================Task 02.02. Const Assertions===================
 
 // 01
