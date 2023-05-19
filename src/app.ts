@@ -37,8 +37,8 @@ type titleAuthor = [title: string, author: string];
 type library = { lib: string; books: number; avgPagesPerBook: number };
 
 // 01
-function getAllBooks(): Book[] {
-    const books: Book[] = [
+function getAllBooks(): readonly Book[] {
+    const books: readonly Book[] = <const>[
         {
             id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true, category: Category.JavaScript
         },
@@ -58,7 +58,7 @@ function getAllBooks(): Book[] {
 
 
 // 02
-function logFirstAvailable(booksArray: Book[]): void {
+function logFirstAvailable(booksArray: readonly Book[]): void {
     const booksCount: number = booksArray.length;
     const firstAvailableBook: Book = booksArray.find(book => book.available);
 
@@ -95,7 +95,7 @@ function getBookAuthorByIndex(index: number): titleAuthor {
 };
 
 // 07
-const libraries: library[] = [
+const libraries: readonly library[] = <const>[
     {
         lib: 'libName1', books: 1_000_000_000,
         avgPagesPerBook: 250
@@ -117,10 +117,10 @@ function calcTotalPages(libraries: library[]): bigint {
 
 }
 
-console.log(calcTotalPages(libraries));
 // ===========================Task 02.02. Const Assertions===================
 
 // 01
+
 
 // ===========================Task 03.01. Functional Type=====================
 
