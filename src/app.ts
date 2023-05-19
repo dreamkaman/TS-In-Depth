@@ -8,7 +8,15 @@ function showHello(divName: string, name: string) {
 
 // ===========================Task 02.01. Basic Types========================
 
-type Book = {
+// type Book = {
+//     id: number;
+//     title: string;
+//     author: string;
+//     available: boolean;
+//     category: Category;
+// };
+
+interface Book {
     id: number;
     title: string;
     author: string;
@@ -25,6 +33,8 @@ enum Category {
 }
 
 type titleAuthor = [title: string, author: string];
+
+type library = { lib: string; books: number; avgPagesPerBook: number };
 
 // 01
 function getAllBooks(): Book[] {
@@ -83,7 +93,31 @@ function getBookAuthorByIndex(index: number): titleAuthor {
     const { title, author } = bookByIndex;
     return [title, author];
 };
-getBookAuthorByIndex(10);
+
+// 07
+const libraries: library[] = [
+    {
+        lib: 'libName1', books: 1_000_000_000,
+        avgPagesPerBook: 250
+    },
+    {
+        lib: 'libName2', books: 5_000_000_000,
+        avgPagesPerBook: 300
+    },
+    {
+        lib: 'libName3', books: 3_000_000_000,
+        avgPagesPerBook: 280
+    }
+];
+function calcTotalPages(libraries: library[]): bigint {
+    const result = libraries.reduce((acc, library) => {
+        return acc + library.books * library.avgPagesPerBook;
+    }, 0);
+    return BigInt(result);
+
+}
+
+console.log(calcTotalPages(libraries));
 // ===========================Task 02.02. Const Assertions===================
 
 // 01
@@ -107,6 +141,7 @@ getBookAuthorByIndex(10);
 // ===========================Task 04.01. Defining an Interface=====================
 
 // 01
+// ======================================================
 
 // ===========================Task 04.02. Defining an Interface for Function Types=====================
 
