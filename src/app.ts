@@ -148,6 +148,19 @@ console.log(idGenerator('Vlad', 500));
 // ===========================Task 03.02. Optional, Default and Rest Parameters=====================
 
 // 01
+type CreateCustomer = (name: string, age?: number, city?: string) => void;
+const createCustomer: CreateCustomer = function (name, age, city) {
+    console.log(`Name is ${name}`);
+    if (age) console.log(`Age is ${age}`);
+    if (city) console.log(`City is ${city}`);
+};
+
+createCustomer('Vlad');
+createCustomer('Vlad', 20);
+createCustomer('Vlad', 20, 'New York');
+
+// 02
+
 
 // ===========================Task 03.03. Function Overloading=====================
 
