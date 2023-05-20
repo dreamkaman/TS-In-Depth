@@ -36,6 +36,7 @@ type titleAuthor = [title: string, author: string];
 
 type library = { lib: string; books: number; avgPagesPerBook: number };
 
+type CreateCustomerID = (name: string, id: number) => string;
 // 01
 function getAllBooks(): readonly Book[] {
     const books: readonly Book[] = <const>[
@@ -125,6 +126,24 @@ function calcTotalPages(libraries: library[]): bigint {
 // ===========================Task 03.01. Functional Type=====================
 
 // 01
+const createCustomerID: CreateCustomerID = function (name, id) {
+
+    return `User name - ${name}, user id - ${id}`;
+
+};
+
+// 02
+let myID: string = createCustomerID('Ann', 10);
+
+console.log(myID);
+
+// 03
+const idGenerator: typeof createCustomerID = (name, id) => {
+    return `User name - ${name}, user id - ${id}`;
+};
+
+// 04
+console.log(idGenerator('Vlad', 500));
 
 // ===========================Task 03.02. Optional, Default and Rest Parameters=====================
 
