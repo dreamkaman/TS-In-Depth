@@ -132,9 +132,18 @@ const createCustomerID: CreateCustomerID = function (name, id) {
 
 };
 
-console.log('Vlad', 10);
+// 02
+let myID: string = createCustomerID('Ann', 10);
 
+console.log(myID);
 
+// 03
+const idGenerator: typeof createCustomerID = (name, id) => {
+    return `User name - ${name}, user id - ${id}`;
+};
+
+// 04
+console.log(idGenerator('Vlad', 500));
 
 // ===========================Task 03.02. Optional, Default and Rest Parameters=====================
 
