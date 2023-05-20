@@ -192,7 +192,10 @@ const checkoutBooks: CheckoutBooks = function (customer, ...bookIDs) {
     return selectedAvailableBookTitles;
 };
 
-console.log(checkoutBooks('Picasso', 1, 2, 3, 4));
+// 06
+const myBooks = checkoutBooks('Ann', 1, 2, 4);
+
+console.log(myBooks);
 
 // ===========================Task 03.03. Function Overloading=====================
 
