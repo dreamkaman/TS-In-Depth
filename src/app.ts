@@ -41,16 +41,16 @@ type CreateCustomerID = (name: string, id: number) => string;
 function getAllBooks(): readonly Book[] {
     const books: readonly Book[] = <const>[
         {
-            id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true, category: Category.JavaScript
+            id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: false, category: Category.JavaScript
         },
         {
-            id: 2, title: 'JavaScript Testing', author: 'Liang Yuxian Eugene', available: false, category: Category.JavaScript
+            id: 2, title: 'JavaScript Testing', author: 'Liang Yuxian Eugene', available: true, category: Category.JavaScript
         },
         {
-            id: 3, title: 'CSS Secrets', author: 'Lea Verou', available: true, category: Category.CSS
+            id: 3, title: 'CSS Secrets', author: 'Lea Verou', available: false, category: Category.CSS
         },
         {
-            id: 4, title: 'Mastering JavaScript Object-Oriented Programming', author: 'Andrea Chiarelli', available: true, category: Category.JavaScript
+            id: 4, title: 'Mastering JavaScript Object-Oriented Programming', author: 'Andrea Chiarelli', available: false, category: Category.JavaScript
         }
     ];
 
@@ -59,7 +59,7 @@ function getAllBooks(): readonly Book[] {
 
 
 // 02
-function logFirstAvailable(booksArray: readonly Book[]): void {
+function logFirstAvailable(booksArray: readonly Book[] = getAllBooks()): void {
     const booksCount: number = booksArray.length;
     const firstAvailableBook: Book = booksArray.find(book => book.available);
 
@@ -72,7 +72,7 @@ function logFirstAvailable(booksArray: readonly Book[]): void {
 
 
 // 04
-function getBookTitlesByCategory(category: Category): string[] {
+function getBookTitlesByCategory(category: Category = Category.JavaScript): string[] {
     const books = getAllBooks();
     const filteredBooks = books.filter(book => book.category === category);
     const namesFilteredBooks = filteredBooks?.map(book => book.title);
@@ -160,7 +160,39 @@ createCustomer('Vlad', 20);
 createCustomer('Vlad', 20, 'New York');
 
 // 02
+console.log(getBookTitlesByCategory());
 
+// 03
+
+logFirstAvailable();
+
+// 04
+type GetBookById = (id: number) => Book;
+const getBookById: GetBookById = function (id) {
+    const books = getAllBooks();
+    const foundBook = books.find(book => book.id === id);
+    return foundBook;
+};
+
+console.log(getBookById(1));
+
+// 05
+type CheckoutBooks = (customer: string, ...bookIDs: number[]) => string[];
+const checkoutBooks: CheckoutBooks = function (customer, ...bookIDs) {
+    const books = getAllBooks();
+    const selectedAvailableBookTitles: string[] = [];
+
+    const availableBooks = bookIDs.forEach(id => {
+        const selectedBook: Book = getBookById(id);
+        if (selectedBook?.available) {
+            selectedAvailableBookTitles.push(selectedBook.title);
+        }
+    });
+    console.log(`Customer - ${customer}`);
+    return selectedAvailableBookTitles;
+};
+
+console.log(checkoutBooks('Picasso', 1, 2, 3, 4));
 
 // ===========================Task 03.03. Function Overloading=====================
 
