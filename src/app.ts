@@ -241,6 +241,29 @@ console.log(checkedOutBooks);
 // ===========================Task 03.04. Assertion Functions=====================
 
 // 01
+function assertStringValue(arg: any): unknown {
+    if (typeof arg !== 'string') {
+        throw new Error('Value should have been a string');
+    }
+    return arg;
+}
+
+// 02
+function bookTitleTransform(title: any): unknown {
+    try {
+        assertStringValue(title);
+
+        return title.split('').reverse().join('');
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+// 03
+console.log(bookTitleTransform('Chupakabra'));
+
+console.log(bookTitleTransform(10));
 
 // ===========================Task 04.01. Defining an Interface=====================
 
