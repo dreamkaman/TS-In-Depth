@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 showHello('greeting', 'TypeScript');
 
 function showHello(divName: string, name: string) {
@@ -41,7 +43,7 @@ type CreateCustomerID = (name: string, id: number) => string;
 function getAllBooks(): readonly Book[] {
     const books: readonly Book[] = <const>[
         {
-            id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: false, category: Category.JavaScript
+            id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true, category: Category.JavaScript
         },
         {
             id: 2, title: 'JavaScript Testing', author: 'Liang Yuxian Eugene', available: true, category: Category.JavaScript
@@ -200,6 +202,41 @@ console.log(myBooks);
 // ===========================Task 03.03. Function Overloading=====================
 
 // 01
+
+// 02
+
+function getTitles(author: string): string[];
+function getTitles(available: boolean): string[];
+function getTitles(id: number, available: boolean): string[];
+function getTitles(...args: [string | boolean] | [number, boolean]): string[] {
+    const books = getAllBooks();
+
+    if (args.length === 1) {
+        const [arg] = args;
+
+        if (typeof arg === 'string') {
+            return books.filter(book => book.author === arg)?.map(book => book.title);
+        }
+
+        if (typeof arg === 'boolean') {
+            return books.filter(book => book.available === arg)?.map(book => book.title);
+        }
+    }
+    if (args.length === 2) {
+        const [id, available] = args;
+        if (typeof id === 'number' && typeof available === 'boolean') {
+            return books.filter(book => book.id === id && book.available === available).map(book => book.title);
+        }
+    }
+    return [];
+}
+
+// 03
+const checkedOutBooks = getTitles(false);
+
+console.log(checkedOutBooks);
+
+
 
 // ===========================Task 03.04. Assertion Functions=====================
 
