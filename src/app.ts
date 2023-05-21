@@ -24,6 +24,8 @@ interface Book {
     author: string;
     available: boolean;
     category: Category;
+    pages?: number;
+    markDamaged?: (reason: string) => void;
 };
 
 enum Category {
@@ -169,10 +171,10 @@ console.log(getBookTitlesByCategory());
 logFirstAvailable();
 
 // 04
-type GetBookById = (id: number) => Book;
+type GetBookById = (id: Book['id']) => Book | undefined;
 const getBookById: GetBookById = function (id) {
     const books = getAllBooks();
-    const foundBook = books.find(book => book.id === id);
+    const foundBook = books?.find(book => book.id === id);
     return foundBook;
 };
 
@@ -268,6 +270,34 @@ console.log(bookTitleTransform(10));
 // ===========================Task 04.01. Defining an Interface=====================
 
 // 01
+// 02
+// 03
+// 04
+function printBook(book: Book): void {
+    console.log(`${book.title} by ${book.author}`);
+}
+
+// 05
+const myBook: Book = {
+    id: 5,
+    title: 'Colors, Backgrounds, and Gradients',
+    author: 'Eric A. Meyer',
+    available: true,
+    category: Category.CSS,
+    pages: 200,
+    markDamaged: (reason) => console.log(`Damaged ${reason}`)
+};
+
+// 06
+printBook(myBook);
+
+// 07
+
+// 08
+
+// 09
+myBook.markDamaged('missing back cove');
+
 // ======================================================
 
 // ===========================Task 04.02. Defining an Interface for Function Types=====================
