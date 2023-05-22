@@ -330,11 +330,53 @@ logDamage('hard disk is broken');
 // ===========================Task 04.03 Extending Interfaces=====================
 
 // 01
+interface Person {
+    name: string;
+    email: string;
+}
+
+// 02
+interface Author extends Person {
+    numBooksPublished: number;
+}
+
+// 03
+interface Librarian extends Person {
+    department: string;
+    assistCustomer(custName: string, bookTitle: string): void;
+}
+
+// 04
+let favoriteAuthor: Author = {
+    name: 'Bob',
+    email: 'bob@gmail.com',
+    numBooksPublished: 2
+};
+
+let favoriteLibrarian: Librarian = {
+    name: 'Bob',
+    email: 'bob@gmail.com',
+    department: 'Public relations',
+    assistCustomer(custName, bookTitle) {
+        console.log(`Customer ${custName} is searching for ${bookTitle}`);
+    }
+};
 
 // ===========================Task 04.04. Optional Chaining=====================
 
 // 01
+let offer = {
+    book: {
+        title: 'Essential TypeScript',
+    },
+};
 
+// 02
+// console.log(offer?.magazine);
+// console.log(offer?.magazine?.getTitle());
+// console.log(offer?.book?.getTitle());
+// console.log(offer?.book?.authors[0]);
+// console.log(offer?.book?.authors[0]?.name);
 // ===========================Task 04.05. keyof operator=====================
 
 // 01
