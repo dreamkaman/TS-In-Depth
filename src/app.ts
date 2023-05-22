@@ -25,7 +25,8 @@ interface Book {
     available: boolean;
     category: Category;
     pages?: number;
-    markDamaged?: (reason: string) => void;
+    // markDamaged?: (reason: string) => void;
+    markDamaged?: DamageLogger;
 };
 
 enum Category {
@@ -243,29 +244,37 @@ console.log(checkedOutBooks);
 // ===========================Task 03.04. Assertion Functions=====================
 
 // 01
-function assertStringValue(arg: any): unknown {
+function assertStringValue(arg: any): asserts arg is string {
     if (typeof arg !== 'string') {
         throw new Error('Value should have been a string');
     }
-    return arg;
+}
+
+function assertCondition(condition: any): asserts condition {
+    if (!condition) {
+        throw new Error('Value should have been a string');
+    }
 }
 
 // 02
 function bookTitleTransform(title: any): unknown {
-    try {
-        assertStringValue(title);
+    assertStringValue(title);
 
-        return title.split('').reverse().join('');
-    } catch (error) {
-        console.log(error.message);
-    }
+
+    return title.split('').reverse().join('');
+
+}
+
+function bookTitleTransform2(title: any): unknown {
+    assertCondition(typeof title === 'string');
+
+    return title.split('').reverse().join('');
 
 }
 
 // 03
 console.log(bookTitleTransform('Chupakabra'));
 
-console.log(bookTitleTransform(10));
 
 // ===========================Task 04.01. Defining an Interface=====================
 
@@ -303,6 +312,20 @@ myBook.markDamaged('missing back cove');
 // ===========================Task 04.02. Defining an Interface for Function Types=====================
 
 // 01
+interface DamageLogger {
+    (param: string): void;
+};
+
+// 02
+
+// 03
+let logDamage: DamageLogger = function (reason) {
+    console.log(`Reason is ${reason}`);
+};
+
+logDamage('hard disk is broken');
+
+
 
 // ===========================Task 04.03 Extending Interfaces=====================
 
