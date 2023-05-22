@@ -373,13 +373,26 @@ let offer = {
 
 // 02
 // console.log(offer?.magazine);
-// console.log(offer?.magazine?.getTitle());
-// console.log(offer?.book?.getTitle());
-// console.log(offer?.book?.authors[0]);
-// console.log(offer?.book?.authors[0]?.name);
+// console.log(offer?.magazine?.getTitle?.());
+// console.log(offer.book.getTitle?.());
+// console.log(offer.book.authors?.[0]);
+// console.log(offer.book.authors?.[0]?.name);
 // ===========================Task 04.05. keyof operator=====================
 
 // 01
+type BookProperties = keyof Book;
+
+// 02
+type GetProperty = (book: Book, bookProperty: BookProperties) => any;
+const getProperty: GetProperty = (book, bookProperty) => {
+    const value = book[bookProperty];
+
+    return typeof value === 'function' ? value.name : value;
+};
+
+// 03
+console.log(getProperty(myBook, 'title'));
+console.log(getProperty(myBook, 'markDamaged'));
 
 // ===========================Task 05.01. Creating and Using Classes=====================
 
