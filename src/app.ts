@@ -398,6 +398,12 @@ console.log(getProperty(myBook, 'markDamaged'));
 
 // 01
 
+class Author {
+    constructor(public name: string) { };
+}
+
+console.log(new Author('Vlad'));
+
 // ===========================Task 05.02. Extending Classes=====================
 
 // 01
