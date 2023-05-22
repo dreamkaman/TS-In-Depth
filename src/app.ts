@@ -398,6 +398,28 @@ console.log(getProperty(myBook, 'markDamaged'));
 
 // 01
 
+class ReferenceItem {
+    // title: string;
+    // year: number;
+    constructor(public title: string, private year: number) {
+        console.log('Creating a new ReferenceItem...');
+        // this.title = newTitle;
+        // this.year = newYear;
+    }
+    printItem(): void {
+        console.log(`title was published in ${this.year}`);
+    };
+}
+
+// 04
+const ref = new ReferenceItem('Test', 2010);
+
+ref.printItem();
+
+
+
+
+
 // ===========================Task 05.02. Extending Classes=====================
 
 // 01
