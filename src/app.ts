@@ -365,7 +365,18 @@ let favoriteLibrarian: Librarian = {
 // ===========================Task 04.04. Optional Chaining=====================
 
 // 01
+let offer = {
+    book: {
+        title: 'Essential TypeScript',
+    },
+};
 
+// 02
+// console.log(offer?.magazine);
+// console.log(offer?.magazine?.getTitle());
+// console.log(offer?.book?.getTitle());
+// console.log(offer?.book?.authors[0]);
+// console.log(offer?.book?.authors[0]?.name);
 // ===========================Task 04.05. keyof operator=====================
 
 // 01
