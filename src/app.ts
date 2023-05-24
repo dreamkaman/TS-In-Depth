@@ -401,7 +401,17 @@ console.log(getProperty(myBook, 'markDamaged'));
 class ReferenceItem {
     // title: string;
     // year: number;
-    constructor(public title: string, private year: number) {
+    private publisher: string;
+
+
+    get _publisher() {
+        return this.publisher.toUpperCase();
+    }
+
+    set _publisher(newPublisher: string) {
+        this.publisher = newPublisher;
+    }
+    constructor(public title: string, private year: number,  #id: number) {
         console.log('Creating a new ReferenceItem...');
         // this.title = newTitle;
         // this.year = newYear;
@@ -415,6 +425,8 @@ class ReferenceItem {
 const ref = new ReferenceItem('Test', 2010);
 
 ref.printItem();
+
+ref._publisher;
 
 
 
