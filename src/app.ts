@@ -401,32 +401,48 @@ console.log(getProperty(myBook, 'markDamaged'));
 class ReferenceItem {
     // title: string;
     // year: number;
-    private publisher: string;
+    private _publisher: string;
 
+    #id: number;
 
-    get _publisher() {
-        return this.publisher.toUpperCase();
-    }
-
-    set _publisher(newPublisher: string) {
-        this.publisher = newPublisher;
-    }
-    constructor(public title: string, private year: number,  #id: number) {
+    // constructor(newTitle:string, newYear:number){
+    constructor(id: number, public title: string, private year: number) {
         console.log('Creating a new ReferenceItem...');
+        this.#id = id;
         // this.title = newTitle;
         // this.year = newYear;
     }
+
+    get #id(): number {
+        return this.#id;
+    }
+
+    get publisher(): string {
+        // eslint-disable-next-line no-underscore-dangle
+        return this._publisher.toUpperCase();
+    }
+
+    set publisher(newPublisher: string) {
+        // eslint-disable-next-line no-underscore-dangle
+        this._publisher = newPublisher;
+    }
+
     printItem(): void {
-        console.log(`title was published in ${this.year}`);
+        console.log(`${this.title} was published in ${this.year}`);
     };
 }
 
 // 04
 const ref = new ReferenceItem('Test', 2010);
 
+console.log(ref);
+
 ref.printItem();
 
-ref._publisher;
+// 06
+ref.publisher = 'Test text';
+
+console.log(ref.publisher);
 
 
 
