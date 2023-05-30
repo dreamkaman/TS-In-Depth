@@ -405,6 +405,8 @@ class ReferenceItem {
 
     #id: number;
 
+    static department: string = 'Default department';
+
     // constructor(newTitle:string, newYear:number){
     constructor(id: number, public title: string, private year: number) {
         console.log('Creating a new ReferenceItem...');
@@ -413,7 +415,7 @@ class ReferenceItem {
         // this.year = newYear;
     }
 
-    get #id(): number {
+    getID(): number {
         return this.#id;
     }
 
@@ -428,12 +430,12 @@ class ReferenceItem {
     }
 
     printItem(): void {
-        console.log(`${this.title} was published in ${this.year}`);
+        console.log(`${this.title} was published in ${this.year} by ${ReferenceItem.department}`);
     };
 }
 
 // 04
-const ref = new ReferenceItem('Test', 2010);
+const ref = new ReferenceItem(25, 'Test', 2010);
 
 console.log(ref);
 
@@ -444,13 +446,27 @@ ref.publisher = 'Test text';
 
 console.log(ref.publisher);
 
+// 07
+console.log(`Id: ${ref.getID()}`);
 
-
+// 08
+ref.printItem();
 
 
 // ===========================Task 05.02. Extending Classes=====================
 
 // 01
+class Encyclopedia extends ReferenceItem {
+    constructor(edition: number, id: number, title: string, year: number) {
+        super(id, title, year);
+    };
+}
+
+// 02
+const refBook = new Encyclopedia(1, 20, 'Learn JavaScript', 2023);
+
+refBook.printItem();
+
 
 // ===========================Task 05.03. Abstract Classes=====================
 
