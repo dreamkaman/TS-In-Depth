@@ -405,6 +405,8 @@ class ReferenceItem {
 
     #id: number;
 
+    static department: string = 'Default department';
+
     // constructor(newTitle:string, newYear:number){
     constructor(id: number, public title: string, private year: number) {
         console.log('Creating a new ReferenceItem...');
@@ -413,7 +415,7 @@ class ReferenceItem {
         // this.year = newYear;
     }
 
-    get #id(): number {
+    getID(): number {
         return this.#id;
     }
 
@@ -428,12 +430,13 @@ class ReferenceItem {
     }
 
     printItem(): void {
-        console.log(`${this.title} was published in ${this.year}`);
+        console.log(`${this.title} was published in ${this.year} by ${ReferenceItem.department}`);
+        console.log(`${this.title} was published in ${this.year} by ${Object.getPrototypeOf(this).constructor.department}`);
     };
 }
 
 // 04
-const ref = new ReferenceItem('Test', 2010);
+const ref = new ReferenceItem(25, 'Test', 2010);
 
 console.log(ref);
 
@@ -444,13 +447,35 @@ ref.publisher = 'Test text';
 
 console.log(ref.publisher);
 
+// 07
+console.log(`Id: ${ref.getID()}`);
 
-
+// 08
+ref.printItem();
 
 
 // ===========================Task 05.02. Extending Classes=====================
 
 // 01
+class Encyclopedia extends ReferenceItem {
+    constructor(edition: number, id: number, title: string, year: number) {
+        super(id, title, year);
+    };
+
+    override printItem(): void {
+        super.printItem();
+        // console.log(`Edition: ${this.edition}`);
+    }
+}
+
+// 02
+const refBook = new Encyclopedia(1, 20, 'Learn JavaScript', 2023);
+
+refBook.printItem();
+
+// 03
+
+
 
 // ===========================Task 05.03. Abstract Classes=====================
 
@@ -548,3 +573,48 @@ console.log(ref.publisher);
 
 // 01
 
+
+// test block
+
+class ReferenceItemTest1 {
+    title = 'No Name';
+
+    getReferenceItemTestTitle() {
+        this.title;
+    }
+}
+
+class EncyclopediaTest1 extends ReferenceItemTest1 {
+    override title = 'Huge Encyclopedia';
+
+    getEncyclopediaTitle() {
+        return this.title;
+    }
+}
+
+class ReferenceItemTest2 {
+    #title = 'No Name';
+
+    getReferenceItemTestTitle() {
+        this.#title;
+    }
+}
+
+class EncyclopediaTest2 extends ReferenceItemTest2 {
+    #title = 'Huge Encyclopedia';
+
+    getEncyclopediaTitle() {
+        return this.#title;
+    }
+}
+
+let instance1 = new EncyclopediaTest1();
+let instance2 = new EncyclopediaTest2();
+
+console.log(instance1);
+console.log(instance1.getReferenceItemTestTitle());// undefined
+console.log(instance1.getEncyclopediaTitle());// Huge Encyclopedia
+
+console.log(instance2);
+console.log(instance2.getReferenceItemTestTitle());// undefined
+console.log(instance2.getEncyclopediaTitle());// Huge Encyclopedia
