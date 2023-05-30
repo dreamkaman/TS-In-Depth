@@ -431,6 +431,7 @@ class ReferenceItem {
 
     printItem(): void {
         console.log(`${this.title} was published in ${this.year} by ${ReferenceItem.department}`);
+        console.log(`${this.title} was published in ${this.year} by ${Object.getPrototypeOf(this).constructor.department}`);
     };
 }
 
@@ -460,12 +461,20 @@ class Encyclopedia extends ReferenceItem {
     constructor(edition: number, id: number, title: string, year: number) {
         super(id, title, year);
     };
+
+    override printItem(): void {
+        super.printItem();
+        // console.log(`Edition: ${this.edition}`);
+    }
 }
 
 // 02
 const refBook = new Encyclopedia(1, 20, 'Learn JavaScript', 2023);
 
 refBook.printItem();
+
+// 03
+
 
 
 // ===========================Task 05.03. Abstract Classes=====================
@@ -564,3 +573,48 @@ refBook.printItem();
 
 // 01
 
+
+// test block
+
+class ReferenceItemTest1 {
+    title = 'No Name';
+
+    getReferenceItemTestTitle() {
+        this.title;
+    }
+}
+
+class EncyclopediaTest1 extends ReferenceItemTest1 {
+    override title = 'Huge Encyclopedia';
+
+    getEncyclopediaTitle() {
+        return this.title;
+    }
+}
+
+class ReferenceItemTest2 {
+    #title = 'No Name';
+
+    getReferenceItemTestTitle() {
+        this.#title;
+    }
+}
+
+class EncyclopediaTest2 extends ReferenceItemTest2 {
+    #title = 'Huge Encyclopedia';
+
+    getEncyclopediaTitle() {
+        return this.#title;
+    }
+}
+
+let instance1 = new EncyclopediaTest1();
+let instance2 = new EncyclopediaTest2();
+
+console.log(instance1);
+console.log(instance1.getReferenceItemTestTitle());// undefined
+console.log(instance1.getEncyclopediaTitle());// Huge Encyclopedia
+
+console.log(instance2);
+console.log(instance2.getReferenceItemTestTitle());// undefined
+console.log(instance2.getEncyclopediaTitle());// Huge Encyclopedia
