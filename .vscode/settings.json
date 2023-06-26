@@ -11,5 +11,8 @@
     "prettier.configPath": "./.prettierrc.json",
     "editor.formatOnSave": true,
     "html.format.enable": false,
-    "editor.formatOnPaste": false
+    "editor.formatOnPaste": false,
+    "cSpell.words": [
+        "cust"
+    ]
 }
