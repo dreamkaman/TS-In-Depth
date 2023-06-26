@@ -198,9 +198,9 @@ const checkoutBooks: CheckoutBooks = function (customer, ...bookIDs) {
 };
 
 // 06
-const myBooks = checkoutBooks('Ann', 1, 2, 4);
+const myBooksTest = checkoutBooks('Ann', 1, 2, 4);
 
-console.log(myBooks);
+console.log(myBooksTest);
 
 // ===========================Task 03.03. Function Overloading=====================
 
@@ -294,7 +294,7 @@ const myBook: Book = {
     available: true,
     category: Category.CSS,
     pages: 200,
-    markDamaged: (reason) => console.log(`Damaged ${reason}`)
+    markDamaged: (reason) => console.log(`Damaged ${reason}`),
 };
 
 // 06
@@ -398,7 +398,7 @@ console.log(getProperty(myBook, 'markDamaged'));
 
 // 01
 
-class ReferenceItem {
+abstract class ReferenceItem {
     // title: string;
     // year: number;
     private _publisher: string;
@@ -408,7 +408,7 @@ class ReferenceItem {
     static department: string = 'Default department';
 
     // constructor(newTitle:string, newYear:number){
-    constructor(id: number, public title: string, private year: number) {
+    constructor(id: number, public title: string, protected year: number) {
         console.log('Creating a new ReferenceItem...');
         this.#id = id;
         // this.title = newTitle;
@@ -433,38 +433,82 @@ class ReferenceItem {
         console.log(`${this.title} was published in ${this.year} by ${ReferenceItem.department}`);
         console.log(`${this.title} was published in ${this.year} by ${Object.getPrototypeOf(this).constructor.department}`);
     };
+
+    abstract printCitation(): void;
 }
 
 // 04
-const ref = new ReferenceItem(25, 'Test', 2010);
+// const ref = new ReferenceItem(25, 'Test', 2010);
 
-console.log(ref);
+// console.log(ref);
 
-ref.printItem();
+// ref.printItem();
 
 // 06
-ref.publisher = 'Test text';
+// ref.publisher = 'Test text';
 
-console.log(ref.publisher);
+// console.log(ref.publisher);
 
 // 07
-console.log(`Id: ${ref.getID()}`);
+// console.log(`Id: ${ref.getID()}`);
 
 // 08
-ref.printItem();
+// ref.printItem();
 
 
 // ===========================Task 05.02. Extending Classes=====================
+// start test for me
+class Book {
+    #title: string;
+    constructor(title: string) {
+        this.#title = title;
+    }
+
+    #printTitle(): void {
+        console.log(this.#title);
+    }
+
+    printBook(): void {
+        console.log(`Book: ${this.#printTitle()}`);
+    }
+}
+
+const book = new Book('Essential TypeScript');
+book.printBook();
+// book.#printBook();//invoke Error
+
+
+class InterestingBook {
+    static #defaultTitle: string = 'NoName';
+    static #getDefaultTitle(): string {
+        return this.#defaultTitle;
+    }
+
+    getDefaultTitle(): string {
+        return InterestingBook.#defaultTitle;
+    }
+}
+
+const interestingBook = new InterestingBook();
+// InterestingBook.#getDefaultTitle();// invoke error
+// InterestingBook.getDefaultTitle();// invoke error
+interestingBook.getDefaultTitle();
+
+// end test for me
 
 // 01
 class Encyclopedia extends ReferenceItem {
-    constructor(edition: number, id: number, title: string, year: number) {
+    constructor(public edition: number, id: number, title: string, year: number) {
         super(id, title, year);
     };
 
     override printItem(): void {
         super.printItem();
-        // console.log(`Edition: ${this.edition}`);
+        console.log(`Edition: ${this.edition} (${this.year})`);
+    }
+
+    printCitation(): void {
+        console.log(`${this.title} - ${this.year}`);
     }
 }
 
@@ -481,9 +525,24 @@ refBook.printItem();
 
 // 01
 
+
 // ===========================Task 05.04. Implementing Interfaces by Classes=====================
 
 // 01
+
+class UniversityLibrarian implements Librarian {
+    name: string;
+    email: string;
+    department: string;
+    assistCustomer(custName: string, bookTitle: string): void {
+        console.log(`${this.name} is assisting ${custName} with the book ${bookTitle}`);
+    }
+}
+
+// 02
+const favoriteLibrarian01: Librarian = new UniversityLibrarian();
+favoriteLibrarian01.name = 'Anna';
+favoriteLibrarian01.assistCustomer('Boris', 'Essential TypeScript');
 
 // ===========================Task 05.05. Intersection and Union Types=====================
 
